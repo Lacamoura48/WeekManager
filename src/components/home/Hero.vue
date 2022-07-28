@@ -28,7 +28,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .victor-2 {
   /* width: 1026px; */
 

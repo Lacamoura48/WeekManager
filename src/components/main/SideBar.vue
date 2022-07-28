@@ -12,10 +12,10 @@
         <ul :class="!entended ? 'flex flex-col gap-5 opacity-1': 'flex flex-col gap-5 opacity-0'">
             <li>
                 
-                <router-link to="/" class="text-center bg-[#F6F6F6] text-[#999999] py-2 px-4 rounded-full text-[25px] flex gap-7 items-center ml-9 mr-14"><div class="rounded-full w-[45px] h-[45px] bg-[#FFAEAC] flex items-center justify-center text-white"><font-awesome-icon icon="fa-solid fa-house" /></div>Home</router-link>
+                <router-link to="/" class="text-center bg-[#F6F6F6] text-[#999999] hover:bg-gray-200 py-2 transition px-4 rounded-full text-[25px] flex gap-7 items-center ml-9 mr-14"><div class="rounded-full w-[45px] h-[45px] bg-[#FFAEAC] flex items-center justify-center text-white"><font-awesome-icon icon="fa-solid fa-house" /></div>Home</router-link>
             </li>
-            <li> <a href="" class="text-center bg-[#F6F6F6] text-[#999999] py-2 px-4 rounded-full text-[25px] flex gap-7 items-center ml-9 mr-14"><div class="rounded-full w-[45px] h-[45px] bg-[#FFAEAC] flex items-center justify-center text-white"><font-awesome-icon icon="fa-solid fa-circle-info" /></div>About</a></li>
-            <li> <a href="" class="text-center bg-[#F6F6F6] text-[#999999] py-2 px-4 rounded-full text-[25px] flex gap-7 items-center ml-9 mr-14"><div class="rounded-full w-[45px] h-[45px] bg-[#FFAEAC] flex items-center justify-center text-white"><font-awesome-icon icon="fa-brands fa-github" /></div>My GitHub</a></li>
+            <li> <a href="" class="text-center bg-[#F6F6F6] text-[#999999] hover:bg-gray-200 py-2 transition px-4 rounded-full text-[25px] flex gap-7 items-center ml-9 mr-14"><div class="rounded-full w-[45px] h-[45px] bg-[#FFAEAC] flex items-center justify-center text-white"><font-awesome-icon icon="fa-solid fa-circle-info" /></div>About</a></li>
+            <li> <a href="" class="text-center bg-[#F6F6F6] text-[#999999] hover:bg-gray-200 py-2 transition px-4 rounded-full text-[20px] flex gap-7 items-center ml-9 mr-14"><div class="rounded-full w-[45px] h-[45px] bg-[#FFAEAC] flex items-center justify-center text-white"><font-awesome-icon icon="fa-brands fa-github" /></div>My GitHub</a></li>
         </ul>
     </div>
     </div>
@@ -43,14 +43,14 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .sidebar {
   min-height: 100vh;
   background-color: white;
   border-radius: 0 45px 45px 0;
   width: 362px;
-  transition: width cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
-  transition-delay: 0.2s ;
+  transition: width cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.3s;
+  transition-delay: 0.1s ;
   box-shadow: 0 5px 24px rgba(0, 0, 0, 0.098);
 }
 .entended {
@@ -64,7 +64,7 @@ export default {
     transition-delay: 0.5s;
 }
 ul {
-    transition: all 1s;
+    transition: all 0.7s;
 }
 
 
