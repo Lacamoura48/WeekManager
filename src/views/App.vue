@@ -4,12 +4,12 @@
     <SideBar />
     <div class="flex w-full p-10 gap-5">
         
-        <div class="flex w-full flex-col items-stretch gap-5">
-            <DivTopLeft class="h-full flex-1"/>
-            <DivBotLeft  class="h-full flex-1"/>
+        <div class="flex w-full flex-col gap-5">
+            <DivTopLeft class="h-full"/>
+            <DivBotLeft  class="h-full"/>
         </div>
 
-        <DivRight class="flex w-full"/>
+        <DivRight class="flex"/>
         
     </div>
    
@@ -19,9 +19,9 @@
 
 <script>
 import SideBar from '../components/main/SideBar.vue';
-import DivBotLeft from '../components/main/DivBotLeft.vue';
-import DivRight from '../components/main/DivRight.vue';
-import DivTopLeft from '../components/main/DivTopLeft.vue';
+import DivBotLeft from '../components/main/divBotLeft/DivBotLeft.vue';
+import DivRight from '../components/main/divRight/DivRight.vue';
+import DivTopLeft from '../components/main/divTopLeft/DivTopLeft.vue';
 export default {
     components: { SideBar, DivBotLeft, DivRight, DivTopLeft }
 }
