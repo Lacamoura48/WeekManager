@@ -3,7 +3,7 @@
      <div class="flex justify-between px-10 mb-2">
       <div class="flex gap-5">
         <button @click="sendChecked"><Checkbox class="logomark" :checked="checked"/></button>
-            <span>do this now</span>
+            <span>{{task.title}}</span>
       </div>
             
             <button><img id="threedots" class="w-8" src="@/assets/svg/three-dots.svg" alt=""></button>
@@ -19,6 +19,10 @@ import Logo from '../../Logo.vue'
 import Checkbox from './Checkbox.vue'
 export default {
   components: { Logo, Checkbox },
+  props : {
+    task : Object,
+  },
+
   data(){
     return {
         checked : false

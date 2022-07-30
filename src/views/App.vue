@@ -5,11 +5,11 @@
     <div class="flex w-full p-10 gap-5">
         
         <div class="flex w-full flex-col gap-5">
-            <DivTopLeft class="h-full"/>
+            <DivTopLeft class="h-full" @currentDay="switchDay"/>
             <DivBotLeft  class="h-full"/>
         </div>
 
-        <DivRight class="flex"/>
+        <DivRight class="flex" :currentDay="currentDay"/>
         
     </div>
    
@@ -23,7 +23,18 @@ import DivBotLeft from '../components/main/divBotLeft/DivBotLeft.vue';
 import DivRight from '../components/main/divRight/DivRight.vue';
 import DivTopLeft from '../components/main/divTopLeft/DivTopLeft.vue';
 export default {
-    components: { SideBar, DivBotLeft, DivRight, DivTopLeft }
+    components: { SideBar, DivBotLeft, DivRight, DivTopLeft },
+    data(){
+        return{
+            currentDay : new Date().getDay()
+        }
+    },
+    methods : {
+        switchDay(e){
+            this.currentDay = e
+
+        }
+    }
 }
 </script>
 
