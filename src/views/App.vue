@@ -5,11 +5,11 @@
     <div class="flex w-full p-10 gap-5">
         
         <div class="flex w-full flex-col gap-5">
-            <DivTopLeft class="h-full" @currentDay="switchDay"/>
+            <DivTopLeft class="h-full" @currentDay="switchDay" :tasksList="tasksList"/>
             <DivBotLeft  class="h-full"/>
         </div>
 
-        <DivRight class="flex" :currentDay="currentDay"/>
+        <DivRight class="flex" :currentDay="currentDay" @updatedTasks="updateChart"/>
         
     </div>
    
@@ -26,14 +26,18 @@ export default {
     components: { SideBar, DivBotLeft, DivRight, DivTopLeft },
     data(){
         return{
-            currentDay : new Date().getDay()
+            currentDay : new Date().getDay(),
+            tasksList : null
         }
     },
     methods : {
         switchDay(e){
             this.currentDay = e
 
-        }
+        },
+    updateChart(e){
+        this.tasksList = e
+    }
     }
 }
 </script>

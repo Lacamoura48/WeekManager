@@ -5,7 +5,7 @@
       <ul class="border-r text-center w-1/2 flex flex-col gap-1">
         <li v-for="day in weekDays" v-bind:key="day.id"><button :class="[day.current? 'text-black bg-[#F3F3F3]':'text-[#B9B9B9]',' px-4 py-1 rounded-xl hover:bg-[#F3F3F3] transition']" @click="selectDay(day.id)">{{day.day}}</button></li>
       </ul>
-      <Chart />
+      <Chart :percentage="percentage"/>
     </div>
     
     
@@ -19,6 +19,15 @@ export default {
     components: { Chart },
     data(){
       return {
+        tasksListProp : [
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+        ],
         weekDays : [
           {id:1, day :'Monday', current : false},
           {id:2,day :'Tuesday', current : false},
@@ -28,19 +37,26 @@ export default {
           {id:6,day :'Saturday', current : false},
           {id:0,day :'Sunday', current : false},
         ],
-        currentDay : new Date().getDay()
+        currentDay : new Date().getDay(),
+        percentage : 0
       }
     },
+    props:{
+      tasksList : Array,
+    },
     updated(){
-      this.currentDay = this.weekDays.find((element)=> element.current == true).id
-      this.$emit('currentDay' , this.currentDay)
+     
+      
       
     },
     created(){
-        const d = new Date();
-        const dayNum = d.getDay();
-        this.weekDays = this.weekDays.map((element)=> element.id == dayNum ? {id: element.id , day : element.day , current : true} : element) 
+        
+        this.weekDays = this.weekDays.map((element)=> element.id == this.currentDay ? {id: element.id , day : element.day , current : true} : element) 
     },
+    mounted(){
+     
+    },
+
 
     methods : {
       selectDay(e){
@@ -49,8 +65,42 @@ export default {
           return {id: element.id , day : element.day , current : false}
         })
         this.weekDays = this.weekDays.map((element)=> element.id == e ? {id: element.id , day : element.day , current : true} : element) 
+        this.currentDay = this.weekDays.find((element)=> element.current == true).id
+        //  this.percentage = this.doTheMath(this.tasksList)
+        // console.log(this.tasksList)
+      },
+      doTheMath(theList, currd){
+        const daysList = theList[currd];
+       
+      let tasksDone = 0;
+      for (let i = 0; i < daysList.length; i++) {
+        if(daysList[i].checked == true){
+          tasksDone++
+        }  
       }
-    }
+      return Math.floor((tasksDone/daysList.length ) * 100 ? (tasksDone/daysList.length ) * 100 : 0)
+      
+      }
+    },
+    watch:{
+     tasksList:{
+      
+      handler(newv,oldv){
+        this.tasksListProp = newv
+   
+        this.percentage = this.doTheMath(newv, this.currentDay)
+    },
+    deep : true 
+
+     },
+     currentDay:function(newvv){
+       
+      
+      this.$emit('currentDay' , this.currentDay)
+      this.percentage = this.doTheMath(this.tasksListProp, newvv)
+    
+     }
+    } 
 }
 </script>
 

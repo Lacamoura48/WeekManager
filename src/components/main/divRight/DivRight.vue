@@ -13,7 +13,7 @@
     </div>
     </transition>
     
-    <TasksList class="h-full" :tasksArray="allTasks" :currentDay="currentDay"/>
+    <TasksList class="h-full" :tasksArray="allTasks" :currentDay="currentDay" @updateList="updateList"/>
     
     
 
@@ -43,6 +43,7 @@ export default {
     props : {
       currentDay : Number,
     },
+   
 
     methods : {
       showAdd(){
@@ -53,12 +54,19 @@ export default {
           {
             id : Date.now() + this.taskText,
             title : this.taskText,
+            checked : false
           }
         )
-        console.log(this.allTasks)
+       
         
-      }
+      },
+        updateList(e){
+      this.allTasks[this.currentDay] = this.allTasks[this.currentDay].map((element)=> element.id == e[0]? {...element, checked:e[1]} : element)
+      this.$emit('updatedTasks',this.allTasks)
+      
     }
+    },
+  
 }
 </script>
 

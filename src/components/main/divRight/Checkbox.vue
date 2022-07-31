@@ -25,7 +25,9 @@ export default {
     },
     watch : {
         checked:function(newv){
-            console.log(newv)
+            
+            this.$emit('checkdone', newv)
+           
         }
     }
    

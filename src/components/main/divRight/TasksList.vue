@@ -2,7 +2,7 @@
   
     <transition-group name="addtask" tag="ul" class="flex flex-col gap-5 pt-10">
         <li v-for="task in tasksArray[currentDay]" :key="task.id">
-           <Task :task="task"/>
+           <Task @updateList="updateList" :task="task"/>
         </li>
         
     </transition-group>
@@ -19,6 +19,15 @@ export default {
   props : {
     tasksArray : Array,
     currentDay : Number,
+  },
+  updated(){
+    
+  },
+  methods:{
+    updateList(e){
+      this.$emit('updateList', e)
+    }
+    
   }
 
 }

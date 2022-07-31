@@ -2,7 +2,7 @@
   <div>
      <div class="flex justify-between px-10 mb-2">
       <div class="flex gap-5">
-        <button @click="sendChecked"><Checkbox class="logomark" :checked="checked"/></button>
+        <button @click="sendChecked"><Checkbox class="logomark" @checkdone="updateList" :checked="checked"/></button>
             <span>{{task.title}}</span>
       </div>
             
@@ -25,14 +25,24 @@ export default {
 
   data(){
     return {
-        checked : false
+        checked : this.task.checked,
+        taskChecked : this.task.checked,
     }
   },
   methods : {
     sendChecked(){
       this.checked = !this.checked
-    }
+      
+     
+     
+
+    },
+    updateList(e){
+    
+    this.$emit('updateList', [this.task.id , e])
   }
+  },
+  
 
 }
 </script>
