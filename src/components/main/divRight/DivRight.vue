@@ -5,15 +5,11 @@
         <button @click="showAdd" class="text-center bg-[#ffffff] text-[#bababa] hover:bg-gray-100 py-2 transition px-4 rounded-full text-[24px] flex gap-3 items-center"><div class="rounded-full w-[28px] h-[28px] bg-[#ffb3b1] flex items-center justify-center text-white"><b class="text-white text-[23px] text-center">+</b></div>Add</button>
     </div>
 
-    <transition name="addtask">
-    <div class="px-10 mt-5 flex gap-4"  v-if="addToggle">
-    <input v-model="taskText" class="bg-[#F6F6F6] appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-[#f3f3f3] hover:bg-[#f3f3f3]" id="taskinput" type="text">
-    <button class="text-center bg-[#ffd558] text-[#ffffff] hover:bg-[#fccc3d] py-1 transition px-4 rounded-full" @click="addTask">Confirm</button>
-    <button class="text-center bg-[#ffb3b1] hover:bg-[#ea9c99] text-white py-1 transition px-4 rounded-full" @click="showAdd">Cancel</button>
-    </div>
+    <transition name="addtask"> 
+      <InputForm :currentDay="currentDay" :allTasks="allTasks" v-if="addToggle" @taskAdded="updateTaskList" @closeTab="showAdd"/>
     </transition>
     
-    <TasksList class="h-full" :tasksArray="allTasks" :currentDay="currentDay" @updateList="updateList"/>
+    <TasksList class="h-full" :tasksArray="allTasks" :currentDay="currentDay" @updateList="updateList" />
     
     
 
@@ -22,13 +18,15 @@
 
 <script>
 import TasksList from './TasksList.vue';
+import InputForm from './InputForm.vue';
+
 export default {
-    components: { TasksList },
+    components: { TasksList, InputForm },
     data(){
       return{
         // currenttDay : this.currentDay,
         addToggle : false,
-        taskText : '',
+        
         allTasks : [
           [],
           [],
@@ -46,24 +44,18 @@ export default {
    
 
     methods : {
+      
       showAdd(){
         this.addToggle = !this.addToggle
-      },
-      addTask(){
-        this.allTasks[this.currentDay].unshift(
-          {
-            id : Date.now() + this.taskText,
-            title : this.taskText,
-            checked : false
-          }
-        )
-       
-        
       },
         updateList(e){
       this.allTasks[this.currentDay] = this.allTasks[this.currentDay].map((element)=> element.id == e[0]? {...element, checked:e[1]} : element)
       this.$emit('updatedTasks',this.allTasks)
       
+    },
+    updateTaskList(e){
+        this.allTasks = e
+        
     }
     },
   
