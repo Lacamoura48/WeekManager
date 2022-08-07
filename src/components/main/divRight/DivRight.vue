@@ -9,7 +9,7 @@
       <InputForm :currentDay="currentDay" :allTasks="allTasks" v-if="addToggle" @taskAdded="updateTaskList" @closeTab="showAdd"/>
     </transition>
     
-    <TasksList class="h-full" :tasksArray="allTasks" :currentDay="currentDay" @updateList="updateList" />
+    <TasksList class="h-full" :tasksArray="allTasks" :currentDay="currentDay" @updateList="updateList" @updatePercentage="updatePercentage"/>
     
     
 
@@ -20,13 +20,14 @@
 import TasksList from './TasksList.vue';
 import InputForm from './InputForm.vue';
 
+
 export default {
     components: { TasksList, InputForm },
     data(){
       return{
         // currenttDay : this.currentDay,
         addToggle : false,
-        
+        percentage : 0 ,
         allTasks : [
           [],
           [],
@@ -41,7 +42,19 @@ export default {
     props : {
       currentDay : Number,
     },
-   
+   created(){
+    if(localStorage.getItem('taskList')){
+
+      this.allTasks = JSON.parse(localStorage.getItem('taskList'))
+      // localStorage.clear()
+    }else {
+      const taskListJson = JSON.stringify(this.allTasks)
+      localStorage.setItem('taskList', taskListJson)
+    }
+      
+      this.percentage = this.doTheMath(this.allTasks, this.currentDay)
+      this.$emit('updatePercentage',this.percentage)
+  },
 
     methods : {
       
@@ -50,13 +63,36 @@ export default {
       },
         updateList(e){
       this.allTasks[this.currentDay] = this.allTasks[this.currentDay].map((element)=> element.id == e[0]? {...element, checked:e[1]} : element)
+      this.percentage = this.doTheMath(this.allTasks, this.currentDay)
       this.$emit('updatedTasks',this.allTasks)
+      this.$emit('updatePercentage',this.percentage)
       
+    },
+    updatePercentage(){
+      this.percentage = this.doTheMath(this.allTasks, this.currentDay)
+      console.log(this.percentage)
+      this.$emit('updatePercentage',this.percentage)
     },
     updateTaskList(e){
         this.allTasks = e
+        const addTaskjson = JSON.stringify(e)
+        localStorage.setItem('taskList', addTaskjson)
+        this.percentage = this.doTheMath(this.allTasks, this.currentDay)
+        this.$emit('updatePercentage',this.percentage)
         
-    }
+    },
+    doTheMath(theList, currd){
+        const daysList = theList[currd];
+       
+      let tasksDone = 0;
+      for (let i = 0; i < daysList.length; i++) {
+        if(daysList[i].checked == true){
+          tasksDone++
+        }  
+      }
+      return Math.floor((tasksDone/daysList.length ) * 100 ? (tasksDone/daysList.length ) * 100 : 0)
+      
+      }
     },
   
 }

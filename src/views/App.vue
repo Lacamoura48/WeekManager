@@ -5,11 +5,11 @@
     <div class="flex w-full p-10 gap-5">
         
         <div class="flex w-full flex-col gap-5">
-            <DivTopLeft class="h-full" @currentDay="switchDay" :tasksList="tasksList"/>
+            <DivTopLeft class="h-full" @currentDay="switchDay" :percentage="percentage"/>
             <DivBotLeft  class="h-full"/>
         </div>
 
-        <DivRight class="flex" :currentDay="currentDay" @updatedTasks="updateChart"/>
+        <DivRight class="flex" :currentDay="currentDay" @updatePercentage="updatePercentage"/>
         
     </div>
    
@@ -27,7 +27,8 @@ export default {
     data(){
         return{
             currentDay : new Date().getDay(),
-            tasksList : null
+            
+            percentage : 0
         }
     },
     methods : {
@@ -35,8 +36,9 @@ export default {
             this.currentDay = e
 
         },
-    updateChart(e){
-        this.tasksList = e
+
+    updatePercentage(e){
+        this.percentage = e
     }
     }
 }

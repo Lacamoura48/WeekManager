@@ -11,6 +11,7 @@
 </template>
 
 <script>
+
 import Logo from '../../Logo.vue'
 import Task from './Task.vue'
 export default {
@@ -21,8 +22,9 @@ export default {
     currentDay : Number,
   },
   updated(){
-    
+    this.$emit('updatePercentage')
   },
+  
   methods:{
     updateList(e){
       this.$emit('updateList', e)
