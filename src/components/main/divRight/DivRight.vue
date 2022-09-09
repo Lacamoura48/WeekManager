@@ -9,7 +9,7 @@
       <InputForm :currentDay="currentDay" :allTasks="allTasks" v-if="addToggle" @taskAdded="updateTaskList" @closeTab="showAdd"/>
     </transition>
     
-    <TasksList class="h-full" :tasksArray="allTasks" :currentDay="currentDay" @updateList="updateList" @updatePercentage="updatePercentage"/>
+    <TasksList class="h-full" @deleteTask="deleteTask" :tasksArray="allTasks" :currentDay="currentDay" @updateList="updateList" @updatePercentage="updatePercentage"/>
     
     
 
@@ -45,15 +45,15 @@ export default {
    created(){
     if(localStorage.getItem('taskList')){
 
-      this.allTasks = JSON.parse(localStorage.getItem('taskList'))
+      this.allTasks = JSON.parse(localStorage.getItem("taskList"));
       // localStorage.clear()
     }else {
       const taskListJson = JSON.stringify(this.allTasks)
       localStorage.setItem('taskList', taskListJson)
     }
       
-      this.percentage = this.doTheMath(this.allTasks, this.currentDay)
-      this.$emit('updatePercentage',this.percentage)
+      this.percentage = this.doTheMath(this.allTasks, this.currentDay);
+      this.$emit("updatePercentage",this.percentage);
   },
 
     methods : {
@@ -70,7 +70,7 @@ export default {
     },
     updatePercentage(){
       this.percentage = this.doTheMath(this.allTasks, this.currentDay)
-      console.log(this.percentage)
+     
       this.$emit('updatePercentage',this.percentage)
     },
     updateTaskList(e){
@@ -80,6 +80,15 @@ export default {
         this.percentage = this.doTheMath(this.allTasks, this.currentDay)
         this.$emit('updatePercentage',this.percentage)
         
+    },
+    deleteTask(e){
+      this.allTasks[this.currentDay] = this.allTasks[this.currentDay].filter((item)=> item.id != e)
+      const tasksjson = JSON.stringify(this.allTasks);
+      localStorage.setItem('taskList', tasksjson)
+      this.percentage = this.doTheMath(this.allTasks, this.currentDay)
+      this.$emit('updatePercentage',this.percentage)
+     
+
     },
     doTheMath(theList, currd){
         const daysList = theList[currd];

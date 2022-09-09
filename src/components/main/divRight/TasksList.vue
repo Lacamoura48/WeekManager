@@ -2,7 +2,7 @@
   
     <transition-group name="addtask" tag="ul" class="flex flex-col gap-5 pt-10">
         <li v-for="task in tasksArray[currentDay]" :key="task.id">
-           <Task @updateList="updateList" :task="task"/>
+           <Task @updateList="updateList" @deleteTask="deleteTask" :task="task"/>
         </li>
         
     </transition-group>
@@ -12,10 +12,10 @@
 
 <script>
 
-import Logo from '../../Logo.vue'
+
 import Task from './Task.vue'
 export default {
-  components: { Logo, Task },
+  components: {Task },
 
   props : {
     tasksArray : Array,
@@ -28,6 +28,9 @@ export default {
   methods:{
     updateList(e){
       this.$emit('updateList', e)
+    },
+    deleteTask(e){
+      this.$emit('deleteTask', e)
     }
     
   }
