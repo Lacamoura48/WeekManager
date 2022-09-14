@@ -1,8 +1,8 @@
 <template>
   
     <div :class="[entended ? 'entended' : '','sidebar z-20 flex flex-col gap-28']">
-    <div :class="!entended ? 'flex justify-between pt-20 px-10 ' : 'flex pt-20'">
-      <Logo v-if="!entended" class="logo"/>
+    <div :class="!entended ? 'flex justify-between pt-20 px-7 ' : 'flex pt-20'">
+      <Logo v-if="!entended" class="logo scale-75"/>
       <button :class="!entended ? 'logobtn bg-[#F6F6F6] hover:bg-gray-200 w-14 h-14 rounded-full flex justify-center items-center mt-4 mb-0 mx-0' : ' logobtn bg-[#F6F6F6] hover:bg-gray-200 w-12 h-12 rounded-full flex justify-center items-center mb-4 mt-0  rotate-180  mx-auto'" @click="enextend">
         <img src="@/assets/svg/right-lg.svg" alt="" />
         
@@ -45,13 +45,13 @@ export default {
 
 <style scoped>
 .sidebar {
-  min-height: 100vh;
+  min-height: calc(100vh - 40px);
   background-color: white;
-  border-radius: 0 45px 45px 0;
-  width: 362px;
+  border-radius: 45px;
+  width: 320px;
   transition: width cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.3s;
   transition-delay: 0.1s ;
-  box-shadow: 0 5px 24px rgba(0, 0, 0, 0.098);
+  
 }
 .entended {
     width: 100px !important;

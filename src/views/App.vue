@@ -1,15 +1,17 @@
 <template>
 <div class="mainapp flex w-full">
-  
-    <SideBar />
-    <div class="flex w-full p-10 gap-5">
+  <div class="py-5 pl-5">
+        <SideBar />
+
+  </div>
+    <div class="flex w-full p-5 gap-5">
         
         <div class="flex w-full flex-col gap-5">
             <DivTopLeft class="h-full" @currentDay="switchDay" :percentage="percentage"/>
             <DivBotLeft  class="h-full"/>
         </div>
 
-        <DivRight class="flex" :currentDay="currentDay" @updatePercentage="updatePercentage"/>
+        <DivRight class="flex h-full" :currentDay="currentDay" @updatePercentage="updatePercentage"/>
         
     </div>
    

@@ -36,10 +36,6 @@ export default {
     props:{
         percentage : Number,
     },
-    updated(){
-      
-      
-    },
     created(){
         
         this.weekDays = this.weekDays.map((element)=> element.id == this.currentDay ? {id: element.id , day : element.day , current : true} : element) 
