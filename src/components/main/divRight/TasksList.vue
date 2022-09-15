@@ -1,11 +1,13 @@
 <template>
-  
-    <transition-group name="addtask" tag="ul" class="flex flex-col gap-5 pt-10">
-        <li v-for="task in tasksArray[currentDay]" :key="task.id">
-           <Task @updateList="updateList" @deleteTask="deleteTask" :task="task"/>
+  <div @click="unselect">
+    <transition-group name="addtask" tag="ul" class="flex justify-center flex-col gap-5 pt-10 cursor-pointer">
+        <li @click="taskSelected(task.id, $event)" v-for="task in tasksArray[animatedDay]" :key="task.id">
+           <Task :class="`task ${task.id == taskSelectedId && 'selected'} ${taskSelectedId && task.id != taskSelectedId ? 'unselected' : ''}`"  @updateList="updateList" @deleteTask="deleteTask" :task="task"/>
         </li>
         
     </transition-group>
+  </div>
+    
     
   
 </template>
@@ -16,7 +18,15 @@
 import Task from './Task.vue'
 export default {
   components: {Task },
-
+  data(){
+    return{
+      taskSelectedId : undefined,
+      animatedDay : null,
+    }
+  },
+  mounted(){
+    this.animatedDay = this.currentDay
+  },
   props : {
     tasksArray : Array,
     currentDay : Number,
@@ -29,10 +39,28 @@ export default {
     updateList(e){
       this.$emit('updateList', e)
     },
+    unselect(){
+      this.taskSelectedId = null
+
+    },
+    taskSelected(id, e ){
+      e.stopPropagation()
+      this.taskSelectedId = id
+      this.$emit('taskSelected', id)
+    },
     deleteTask(e){
       this.$emit('deleteTask', e)
     }
     
+  },
+  watch: {
+    currentDay:function(newV){
+      this.animatedDay = null
+      setTimeout(()=>{
+              this.animatedDay = newV
+
+      }, 300)
+    }
   }
 
 }
@@ -42,6 +70,22 @@ export default {
  li {
     font-family : 'Dongle';
     font-weight: 300;
+   
+ }
+ .task {
+  transition: all 0.2s;
+
+ }
+ .selected {
+  transform: scale(1.02);
+  transition: all 0.2s;
+  box-shadow: 0 10px 45px rgba(0, 0, 0, 0.066);
+  border-radius: 15px;
+  padding: 15px 0;
+  
+ }
+ .unselected {
+  opacity: 0.4;
  }
 .addtask-enter-from{
       opacity: 0;
@@ -57,12 +101,12 @@ export default {
     }
     .addtask-leave-to{
       opacity: 0;
-      transform: translateX(-30px);
+      transform: translateY(-30px);
     }
     .addtask-enter-active{
-      transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+      transition: all  0.3s;
     }
     .addtask-leave-active{
-      transition: all 0.3s;
+      transition: all  0.3s;
     }
 </style>

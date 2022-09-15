@@ -56,12 +56,16 @@ export default {
     emptySound : new Howl({
         src: [a1,a2],
         volume:0.5,
+       
         autoplay: false, loop: true,
     }),
       minutesDisplay : 0,
       secondsDisplay : 0,
       theInterval : null
     }
+  },
+  props :{
+    taskSelected : Boolean,
   },
   mounted(){
     let timeRemaining = this.times[this.currentTime].time

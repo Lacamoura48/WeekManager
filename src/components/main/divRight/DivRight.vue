@@ -64,7 +64,8 @@ export default {
         updateList(e){
       this.allTasks[this.currentDay] = this.allTasks[this.currentDay].map((element)=> element.id == e[0]? {...element, checked:e[1]} : element)
       this.percentage = this.doTheMath(this.allTasks, this.currentDay)
-      this.$emit('updatedTasks',this.allTasks)
+      const tasksjson = JSON.stringify(this.allTasks);
+      localStorage.setItem('taskList', tasksjson)
       this.$emit('updatePercentage',this.percentage)
       
     },

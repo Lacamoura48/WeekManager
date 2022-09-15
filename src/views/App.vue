@@ -29,7 +29,6 @@ export default {
     data(){
         return{
             currentDay : new Date().getDay(),
-            
             percentage : 0
         }
     },
