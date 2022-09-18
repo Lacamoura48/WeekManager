@@ -8,10 +8,10 @@
         
         <div class="flex w-full flex-col gap-5">
             <DivTopLeft class="h-full" @currentDay="switchDay" :percentage="percentage"/>
-            <DivBotLeft  class="h-full"/>
+            <DivBotLeft :timerShown="timerShown" @taskCompleted="completeTask"  class="h-full"/>
         </div>
 
-        <DivRight class="flex h-full" :currentDay="currentDay" @updatePercentage="updatePercentage"/>
+        <DivRight  class="flex h-full" :taskCompleted="taskCompleted" :currentDay="currentDay" @taskSelected="showTimer" @updatePercentage="updatePercentage"/>
         
     </div>
    
@@ -29,7 +29,9 @@ export default {
     data(){
         return{
             currentDay : new Date().getDay(),
-            percentage : 0
+            percentage : 0,
+            timerShown : '',
+            taskCompleted : false,
         }
     },
     methods : {
@@ -37,6 +39,17 @@ export default {
             this.currentDay = e
 
         },
+        showTimer(e){
+        this.timerShown = e
+      },
+      completeTask(){
+       
+        this.taskCompleted = true
+        setTimeout(()=>{
+            this.taskCompleted = false
+        },1000)
+    
+      },
 
     updatePercentage(e){
         this.percentage = e

@@ -51,6 +51,11 @@ export default {
 
   }
   },
+ watch:{
+  task:function(newV){
+    this.checked = newV.checked
+  }
+ }
   
 
 }

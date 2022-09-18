@@ -9,7 +9,7 @@
       <InputForm :currentDay="currentDay" :allTasks="allTasks" v-if="addToggle" @taskAdded="updateTaskList" @closeTab="showAdd"/>
     </transition>
     
-    <TasksList class="h-full" @deleteTask="deleteTask" :tasksArray="allTasks" :currentDay="currentDay" @updateList="updateList" @updatePercentage="updatePercentage"/>
+    <TasksList class="h-full" @taskSelected="selecttask" @deleteTask="deleteTask" :tasksArray="allTasks" :currentDay="currentDay" @updateList="updateList" @updatePercentage="updatePercentage"/>
     
     
 
@@ -28,6 +28,7 @@ export default {
         // currenttDay : this.currentDay,
         addToggle : false,
         percentage : 0 ,
+        taskSelected : null,
         allTasks : [
           [],
           [],
@@ -36,11 +37,13 @@ export default {
           [],
           [],
           [],
-        ]
+        ],
+      
       }
     },
     props : {
       currentDay : Number,
+      taskCompleted : Boolean
     },
    created(){
     if(localStorage.getItem('taskList')){
@@ -61,6 +64,7 @@ export default {
       showAdd(){
         this.addToggle = !this.addToggle
       },
+     
         updateList(e){
       this.allTasks[this.currentDay] = this.allTasks[this.currentDay].map((element)=> element.id == e[0]? {...element, checked:e[1]} : element)
       this.percentage = this.doTheMath(this.allTasks, this.currentDay)
@@ -91,6 +95,10 @@ export default {
      
 
     },
+    selecttask(e){
+      this.$emit('taskSelected', e)
+      this.taskSelected = e
+    },
     doTheMath(theList, currd){
         const daysList = theList[currd];
        
@@ -104,7 +112,11 @@ export default {
       
       }
     },
-  
+  watch:{
+    taskCompleted:function(newV){
+      this.updateList([this.taskSelected, true])
+    }
+  }
 }
 </script>
 

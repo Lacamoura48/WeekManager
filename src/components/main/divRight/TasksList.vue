@@ -41,7 +41,7 @@ export default {
     },
     unselect(){
       this.taskSelectedId = null
-
+      this.$emit('taskSelected', '')
     },
     taskSelected(id, e ){
       e.stopPropagation()
@@ -55,6 +55,7 @@ export default {
   },
   watch: {
     currentDay:function(newV){
+      this.unselect()
       this.animatedDay = null
       setTimeout(()=>{
               this.animatedDay = newV

@@ -17,9 +17,20 @@
 </template>
 
 <script scoped>
+    import a1 from '../../../assets/sounds/notif.mp3';
+    import { Howl } from 'howler';
 export default {
     name : 'Checkbox',
-    
+    data(){
+        return{
+            doneSound : new Howl({
+        src: [a1],
+        volume:1,
+       
+        autoplay: false, loop: false,
+    }),
+        }
+    },
     props : {
         checked : Boolean,
     },
@@ -27,7 +38,10 @@ export default {
         checked:function(newv){
             
             this.$emit('checkdone', newv)
-           
+            if(newv == true){
+                            this.doneSound.play()
+
+            }
         }
     }
    

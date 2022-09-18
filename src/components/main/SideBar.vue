@@ -30,7 +30,7 @@ export default {
   components: { Logo },
   data(){
     return{
-        entended : false
+        entended : true
     }
   },
   methods : {
