@@ -5,7 +5,7 @@
         <a href="">Home</a>
         <a href="">About</a>
         <a href="">More</a>
-        <router-link to="/app" class=" w-[113px] h-[52px] text-center bg-gradient-to-b from-[#FF6666] to-[#FF9595] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[13px] font-semibold text-[25px]">Use it</router-link>
+        <router-link to="/" class=" w-[113px] h-[52px] text-center bg-gradient-to-b from-[#FF6666] to-[#FF9595] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[13px] font-semibold text-[25px]">Use it</router-link>
     </div>
     
     

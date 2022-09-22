@@ -15,7 +15,7 @@
           Use the shortest possible time to create tasks, <br> and don’t waste a
           second of your time.
         </p>
-         <router-link to="/app" class=" absolute top-[390px] left-[87px] w-[200px] h-[52px] text-center bg-white text-[#ff6666] py-2 px-4 rounded-[13px] font-semibold text-[25px]">Try it Now</router-link>
+         <router-link to="/" class=" absolute top-[390px] left-[87px] w-[200px] h-[52px] text-center bg-white text-[#ff6666] py-2 px-4 rounded-[13px] font-semibold text-[25px]">Try it Now</router-link>
       </div>
 
       <img class="willow z-10" src="@/assets/svg/Willow-guy.svg" alt="" />
